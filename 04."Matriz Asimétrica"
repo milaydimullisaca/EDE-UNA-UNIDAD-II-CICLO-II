@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Ingrese el tamaño de la matriz cuadrada: ";
+    cin >> n;
+
+    int matriz[n][n];
+    cout << "Ingrese los elementos de la matriz (solo 0 o 1):" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            do {
+                cout << "Elemento [" << i << "][" << j << "]: ";
+                cin >> matriz[i][j];
+                if (matriz[i][j] != 0 && matriz[i][j] != 1) {
+                    cout << "Error: solo se permite 0 o 1." << endl;
+                }
+            } while (matriz[i][j] != 0 && matriz[i][j] != 1);
+        }
+    }
+
+    cout << "Matriz ingresada" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matriz[i][j] << " ";
+        }
+        cout << endl;
+    }
+    // Evaluar asimetría
+    bool esAsimetrica = true;
+    //debe ser irreflexiva
+    cout<<"evaluamos si es irreflexiva"<<endl;
+    for (int i = 0; i < n; i++) {
+        if (matriz[i][i] == 0) {
+            cout << "Elemento [" << i << "][" << i << "] = 0 → Correcto (diagonal=0)" << endl;
+        } else {
+            cout << "Elemento [" << i << "][" << i << "] = 1 → Incorrecto (diagonal debe ser=0)"<< endl;
+            esAsimetrica = false;
+        }
+    }
+   cout<<"fuera de la diagonal"<<endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (matriz[i][j] == 1 && matriz[j][i] == 1) {
+                cout << "Elemento [" << i << "][" << j << "] = 1 entonces [" << j << "][" << i << "] = 1 → Incorrecto (ambos no pueden ser 1)" << endl;
+                esAsimetrica = false;
+            } else {
+                cout << "Elemento [" << i << "][" << j << "] = " << matriz[i][j]
+                     << "entonces [" << j << "][" << i << "] = " << matriz[j][i]
+                     << " → Correcto" << endl;
+            }
+        }
+    }
+
+    if (esAsimetrica) {
+        cout << "Por lo tanto la matriz SI es asimétrica" << endl;
+    } else {
+        cout << "Por lo tanto la matriz NO es asimétrica" << endl;
+    }
+
+    return 0;
+}
