@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int n;
+    cout << "Ingrese el tamaño de la matriz cuadrada: ";
+    cin >> n;
+    int matriz[n][n];
+    cout << "Ingrese los elementos de la matriz (solo 0 o 1):"<< endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            do {
+                cout << "Elemento [" << i << "][" << j << "]: ";
+                cin >> matriz[i][j];
+                if (matriz[i][j] != 0 && matriz[i][j] != 1) {
+                    cout << "Error: solo se permite 0 o 1." << endl;
+                }
+            } while (matriz[i][j] != 0 && matriz[i][j] != 1);
+        }
+    }
+    cout << "Matriz ingresada:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matriz[i][j] << " ";
+        }
+        cout << endl;
+    }
+    // Verificar reflexividad
+    bool esReflexiva = true;
+    for (int i = 0; i < n; i++) {
+        if (matriz[i][i] != 1) {
+            esReflexiva = false;
+            cout << "Elemento [" << i << "][" << i << "] = 0 → NO pertenece a la relación (Incorrecto)" << endl;
+        } else {
+            cout << "Elemento [" << i << "][" << i << "] = 1 → Pertenece a la relación (Correcto)" << endl;
+        }
+    }
+    if (esReflexiva) {
+        cout << "La matriz SI es reflexiva" << endl;
+    } else {
+        cout << "La matriz NO es reflexiva" << endl;
+    }
+    // Verificar simetría
+    bool esSimetrica = true;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (matriz[i][j] == matriz[j][i]) {
+                cout << "Elemento [" << i << "][" << j << "] = " << matriz[i][j] << " entonces [" << j << "][" << i << "] = " << matriz[j][i] << " → Coinciden (Correcto)" << endl;
+            } else {
+                cout << "Elemento [" << i << "][" << j << "] = " << matriz[i][j] << " entonces [" << j << "][" << i << "] = " << matriz[j][i] << " → No coinciden (Incorrecto)" << endl;
+                esSimetrica = false;
+            }
+        }
+    }
+    if (esSimetrica) {
+        cout << "La matriz SI es simétrica" << endl;
+    } else {
+        cout << "La matriz NO es simétrica" << endl;
+    }
+    // Verificar transitividad
+    bool esTransitiva = true;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int k = 0; k < n; k++) {
+                if (matriz[i][j] == 1 && matriz[j][k] == 1) {
+                    if (matriz[i][k] == 1) {
+                        cout << "Existe [" << i << "][" << j << "] = 1 y [" << j << "][" << k << "] = 1, entonces [" << i << "][" << k << "] = 1 → Correcto" << endl;
+                    } else {
+                        cout << "Existe [" << i << "][" << j << "] = 1 y [" << j << "][" << k << "] = 1, entonces [" << i << "][" << k << "] = 0 → Incorrecto" << endl;
+                        esTransitiva = false;
+                    }
+                }
+            }
+        }
+    }
+        if (esTransitiva) {
+        cout << "La matriz SI es transitiva" << endl;
+    } else {
+        cout << "La matriz NO es transitiva" << endl;
+    }
+     // Verificar si es equivalente
+    if (esReflexiva && esSimetrica && esTransitiva) {
+        cout << "Por lo tanto la matriz SI es una relación de equivalencia" << endl;
+    } else {
+        if (!esReflexiva) cout << endl;
+        if (!esSimetrica) cout << endl;
+        if (!esTransitiva) cout << endl;
+        cout << "Por lo tanto la matriz NO es una relación de equivalencia" << endl;
+    }
+
+    return 0;
+}
