@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int n;
+    cout << "Ingrese el tamaño de la matriz cuadrada: ";
+    cin >> n;
+    int matriz[n][n];
+    cout << "Ingrese los elementos de la matriz (solo 0 o 1):\n";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            do {
+                cout << "Elemento [" << i << "][" << j << "]: ";
+                cin >> matriz[i][j];
+                if (matriz[i][j] != 0 && matriz[i][j] != 1) {
+                    cout << "Error: solo se permite 0 o 1.\n";
+                }
+            } while (matriz[i][j] != 0 && matriz[i][j] != 1);
+        }
+    }
+    cout << "Matriz ingresada"<<endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matriz[i][j] << " ";
+        }
+        cout << endl;
+    }
+    // Evaluación irreflexiva
+    bool esIrreflexiva = true;
+    for (int i = 0; i < n; i++) {
+        if (matriz[i][i] == 0) {
+            cout << "Elemento [" << i << "][" << i << "] = 0 → NO pertenece a la relacion(Correcto)"<<endl;
+        } else {
+            cout << "Elemento [" << i << "][" << i << "] = 1 → SI pertenece a la relacion(Incorrecto)"<<endl;
+            esIrreflexiva = false;
+        }
+    }
+    if (esIrreflexiva) {
+        cout << "La matriz SI es irreflexiva"<<endl;
+    } else {
+        cout << "La matriz NO es irreflexiva"<<endl;
+    }
+
+    return 0;
+}
